@@ -1,0 +1,129 @@
+body {
+	background: url("../img/nen.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	color: #FFF;
+	font-family: 'Quicksand', sans-serif;
+	text-align: center;
+}
+
+body a {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+	text-decoration: none;
+}
+
+input[type="button"], input[type="submit"] {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
+
+h1 {
+    font-size: 45px;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 7px;
+    margin: 65px auto;
+}
+
+.stylesigup {
+    width: 30%;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+}
+
+h2 {
+    font-size: 35px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+input[type="text"], input[type="password"]{
+	width: 100%;
+	padding: 15px 10px 15px;
+	font-size: 16px;
+	background: transparent;
+	border: 2px solid #537b35;
+	outline: none;
+	margin-bottom: 26px;
+	color: #fff;
+	font-family: 'Quicksand', sans-serif;
+}
+input[type="text"]{
+	background: url("../img/user.png") no-repeat 360px 5px;
+	background-size: 25px;
+}
+input[type="password"] {
+	background: url("../img/password.png") no-repeat 360px 5px;
+	background-size: 25px;
+}
+input[type="submit"] {
+	font-size: 16px;
+	padding: 10px 65px;
+	background-color: #537b35;
+	color: #FFF;
+	border: none;
+	border-radius: 0px;
+	outline: none;
+	float:none;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #fff;
+    color: #537b35;
+}
+
+::-webkit-input-placeholder {
+	color: #FFF;
+}
+
+::-moz-placeholder {
+	color: #FFF;
+}
+
+::-moz-placeholder {
+	color: #FFF;
+}
+
+::-ms-input-placeholder {
+	color: #FFF;
+}
+
+.contact-form1 {
+    padding: 60px 40px;
+    background: #537b35;
+}
+#small-dialog, #small-dialog1, #small-dialog2 {
+    max-width: 555px;
+}
+label.checkbox {
+    display: block;
+    margin: 5px 0px 0px 23px;
+    text-align: left;
+}
+
+label {
+    color: #000;
+    font-size: 15px;
+}
+input[type="checkbox"] {
+    margin: 3px 13px 3px 4px;
+}
+a, a:hover {
+	color: #537b35;
+}

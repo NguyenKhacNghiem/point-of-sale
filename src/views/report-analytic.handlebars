@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-6">
+            <div class="mb-2">
+                <label for="generalTimeline">Xem theo mốc thời gian:</label>
+                <select onchange="getByGeneralTimeLine()" name="generalTimeline" class="custom-select" id="generalTimeline">
+                    <option value="Mặc định">Mặc định</option>
+                    <option value="Hôm nay">Hôm nay</option>
+                    <option value="Hôm qua">Hôm qua</option>
+                    <option value="7 ngày trước">7 ngày trước</option>
+                    <option value="Tháng này">Tháng này</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-4 form-group">
+                    <label for="fromTimeLine">Từ ngày:</label>
+                    <input type="date" class="form-control" id="fromTimeLine" name="fromTimeLine">
+                </div>
+
+                <div class="col-4 form-group">
+                    <label for="toTimeLine">Đến ngày:</label>
+                    <input type="date" class="form-control" id="toTimeLine" name="toTimeLine">
+                </div>
+
+                <div class="col-4 form-group">
+                    <label>Xem:</label>
+                    {{#if email}}
+                        <button onclick="getBySpecificTimeLine()" class="btn btn-success form-control">Xem</button>
+                    {{else}}
+                        <button onclick="getBySpecificTimeLine()" class="btn btn-primary form-control">Xem</button>
+                    {{/if}}
+                </div>
+            </div>  
+        </div>
+
+        <div class="col-6">
+            <ul class="list-group">
+                <li class="list-group-item"><b>Tổng số lượng đơn hàng:</b> <span id="amountOfOrder"></span></li>
+                <li class="list-group-item"><b>Tổng số sản phẩm bán ra:</b> <span id="amountOfProduct"></span></li>
+                <li class="list-group-item text-danger"><b>Tổng doanh thu:</b> <span id="revenue"></span></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <table class="table table-hover text-center">
+        <thead>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Khách hàng</th>
+                <th>Tổng tiền</th>
+                <th>Số tiền khách đưa</th>
+                <th>Số tiền trả khách</th>
+                <th>Ngày mua</th>
+                <th>Số lượng</th>
+                <th>Xem chi tiết</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/report-analytic.js"></script>

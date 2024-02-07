@@ -1,0 +1,285 @@
+<link rel="stylesheet" href="/css/productManagement.css">
+
+<div class="container-fluid">
+    <form action="/product-management" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group col-lg-4 col-md-6 col-12">
+                <label for="barcode">Barcode:</label>
+                <input value="{{barcode}}" type="text" class="form-control" placeholder="VD: 91238129" id="barcode" name="barcode">
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6 col-12">
+                <label for="productName">Tên sản phẩm:</label>
+                <input value="{{name}}" type="text" class="form-control" placeholder="VD: Iphone 15" id="productName" name="productName">
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6 col-12">
+                <label for="category">Danh mục:</label>
+                <select name="category" class="custom-select" id="category">
+                    <option value="Điện thoại" {{#if (eq category "Điện thoại")}}selected{{/if}}>Điện thoại</option>
+                    <option value="Máy tính bảng" {{#if (eq category "Máy tính bảng")}}selected{{/if}}>Máy tính bảng</option>
+                    <option value="Đồng hồ thông minh" {{#if (eq category "Đồng hồ thông minh")}}selected{{/if}}>Đồng hồ thông minh</option>
+                    <option value="Cục sạc" {{#if (eq category "Cục sạc")}}selected{{/if}}>Cục sạc</option>
+                    <option value="Dây sạc" {{#if (eq category "Dây sạc")}}selected{{/if}}>Dây sạc</option>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6 col-12">
+                <label for="importPrice">Giá nhập:</label>
+                <input value="{{importPrice}}" type="number" class="form-control" id="importPrice" name="importPrice" min="0">
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6 col-12">
+                <label for="retailPrice">Giá bán:</label>
+                <input value="{{retailPrice}}" type="number" class="form-control" id="retailPrice" name="retailPrice" min="0">
+            </div>
+
+            <div class="form-group col-lg-4 col-md-6 col-12">
+                <label for="creationDate">Ngày tạo:</label>
+                <input value="{{creationDate}}" type="date" class="form-control" id="creationDate" name="creationDate">
+            </div>
+
+            <div class="container-fluid">
+                <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
+                    <label class="custom-file-label" for="image">Chọn ảnh</label>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-primary" id="add" value="Thêm">
+        <input type="reset" class="btn btn-secondary" id="reset" value="Hủy">
+    </form>
+
+    {{#if error}}
+        <div class="alert alert-danger" id="errorAlert" style="margin-top: 15px;">{{error}}</div>
+    {{/if}}
+
+    {{#if success}}
+        <div class="alert alert-success" id="successAlert" style="margin-top: 15px;">{{success}}</div>
+    {{/if}}
+
+    <div class="table-responsive mt-3">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>HÌNH ẢNH</th>
+                    <th>BARCODE</th>
+                    <th>TÊN SẢN PHẨM</th>
+                    <th>DANH MỤC</th>
+                    <th>GIÁ NHẬP</th>
+                    <th>GIÁ BÁN</th>
+                    <th>NGÀY TẠO</th>
+                    <th>HÀNH ĐỘNG</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {{#each products}}
+                <tr>
+                    <td><img src="/uploads/products/{{image}}"></td>
+                    <td>{{barcode}}</td>
+                    <td>{{productName}}</td>
+                    <td>{{category}}</td>
+                    <td>{{formatPrice importPrice}}đ</td>
+                    <td>{{formatPrice retailPrice}}đ</td>
+                    <td>{{creationDate}}</td>
+                    <td>
+                        <button class="btn btn-secondary" onclick="detailProduct('{{image}}', '{{barcode}}', '{{productName}}', '{{category}}', {{importPrice}}, {{retailPrice}}, '{{creationDate}}')"><i class="fa-solid fa-circle-info"></i></button>
+                        <button class="btn btn-warning" onclick="confirmUpdateProduct('{{image}}', '{{barcode}}', '{{productName}}', '{{category}}', {{importPrice}}, {{retailPrice}}, '{{creationDate}}')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-danger" onclick="confirmDeleteProduct('{{barcode}}')"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            {{#if totalPages}}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item {{#if (eq currentPage 1)}}disabled{{/if}}">
+                            <a class="page-link" href="?page=1"><<</a>
+                        </li>
+                        <li class="page-item {{#if (eq currentPage 1)}}disabled{{/if}}">
+                            {{#if (eq currentPage 1)}}
+                                <a class="page-link" href="#"><</a>
+                            {{else}}
+                                <a class="page-link" href="?page={{prevPage}}"><</a>
+                            {{/if}}
+                        </li>
+                        {{#each pages}}
+                            <li class="page-item {{#if (eq ../currentPage this)}}active{{/if}}">
+                                <a class="page-link" href="?page={{this}}">{{this}}</a>
+                            </li>
+                        {{/each}}
+                        <li class="page-item {{#if (eq currentPage totalPages)}}disabled{{/if}}">
+                            {{#if (eq currentPage totalPages)}}
+                                <a class="page-link" href="#">></a>
+                            {{else}}
+                                <a class="page-link" href="?page={{nextPage}}">></a>
+                            {{/if}}
+                        </li>
+                         <li class="page-item {{#if (eq currentPage totalPages)}}disabled{{/if}}">
+                            <a class="page-link" href="?page={{totalPages}}">>></a>
+                        </li>
+                    </ul>
+                </nav>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+{{!-- Modal xem chi tiết sản phẩm --}}
+<div class="modal fade" id="modalDetail">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header bg-dark">
+          <h4 class="modal-title w-100 text-center text-light" id="modalDetailProductTitle"></h4>
+          <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body bg-dark">
+            <div class="row py-3">
+                <div class="col-4">
+                    <img src="/uploads/products/iphone15.png" id="modalDetailProductImage">
+                </div>
+
+                <div class="col-8">
+                    <div id="modalDetailProductInfo">
+                        <h4 id="modalDetailProductBarcode">Chỗ này lấy từ js client qua (ko cần sửa)</h4>
+                        <p id="modalDetailProductName">Chỗ này lấy từ js client qua (ko cần sửa)</p>
+                        <p id="modalDetailProductCategory">Chỗ này lấy từ js client qua (ko cần sửa)</p>
+                        <p id="modalDetailProductImportPrice">Chỗ này lấy từ js client qua (ko cần sửa)</p>
+                        <p id="modalDetailProductRetailPrice">Chỗ này lấy từ js client qua (ko cần sửa)</p>
+                        <p id="modalDetailProductCreationDate">Chỗ này lấy từ js client qua (ko cần sửa)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer bg-dark">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        </div>
+    
+      </div>
+    </div>
+</div>
+
+{{!-- Modal cập nhật sản phẩm --}}
+<div class="modal fade" id="modalUpdate">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title w-100 text-center">CẬP NHẬT SẢN PHẨM</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group col-md-6 col-12">
+                    <label for="updatedBarcode">Barcode:</label>
+                    <input type="text" class="form-control" placeholder="VD: 91238129" id="updatedBarcode" name="updatedBarcode" readonly>
+                </div>
+
+                <div class="form-group col-md-6 col-12">
+                    <label for="updatedProductName">Tên sản phẩm:</label>
+                    <input type="text" class="form-control" placeholder="VD: Iphone 15" id="updatedProductName" name="updatedProductName">
+                </div>
+
+                <div class="form-group col-md-6 col-12">
+                    <label for="updatedCategory">Danh mục:</label>
+                    <select name="updatedCategory" class="custom-select" id="updatedCategory">
+                        <option selected value="Điện thoại">Điện thoại</option>
+                        <option value="Máy tính bảng">Máy tính bảng</option>
+                        <option value="Đồng hồ thông minh">Đồng hồ thông minh</option>
+                        <option value="Cục sạc">Cục sạc</option>
+                        <option value="Dây sạc">Dây sạc</option>
+                    </select>        
+                </div>
+
+                <div class="form-group col-md-6 col-12">
+                    <label for="updatedImportPrice">Giá nhập:</label>
+                    <input type="number" class="form-control" id="updatedImportPrice" name="updatedImportPrice" min="0">
+                </div>
+
+                <div class="form-group col-md-6 col-12">
+                    <label for="updatedRetailPrice">Giá bán:</label>
+                    <input type="number" class="form-control" id="updatedRetailPrice" name="updatedRetailPrice" min="0">
+                </div>
+
+                <div class="form-group col-md-6 col-12">
+                    <label for="updatedCreationDate">Ngày tạo:</label>
+                    <input type="date" class="form-control" id="updatedCreationDate" name="updatedCreationDate" value="2023-10-08">
+                </div>
+
+                <div class="container-fluid">
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="updatedImage" name="updatedImage" accept="image/*">
+                        <label class="custom-file-label" for="updatedImage">Chọn ảnh</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-warning" data-dismiss="modal" onclick="updateProduct()">Cập nhật</button>
+        </div>
+        
+      </div>
+    </div>
+</div>
+
+{{!-- Modal xác nhận xóa sản phẩm --}}
+<div class="modal fade" id="modalDelete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">XÓA SẢN PHẨM</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Xác nhận xóa sản phẩm
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="deleteProduct()">Xóa</button>
+        </div>
+        
+      </div>
+    </div>
+</div>
+
+<script>
+    // Ẩn thông báo lỗi sau 3 giây
+    var errorAlert = document.getElementById('errorAlert');
+    if (errorAlert) {
+        setTimeout(function() {
+            errorAlert.style.display = 'none';
+        }, 3000);
+    }
+
+    // Ẩn thông báo thành công sau 3 giây
+    var successAlert = document.getElementById('successAlert');
+    if (successAlert) {
+        setTimeout(function() {
+            successAlert.style.display = 'none';
+        }, 3000);
+    }
+</script>
+
+<script src="/js/productManagement.js"></script>

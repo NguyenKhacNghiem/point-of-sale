@@ -1,0 +1,35 @@
+td img {
+    width: 100px;
+    height: 100px;
+}
+
+td img:hover {
+    scale: 1.5;
+    transition: 1s;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+#modalDetailProductTitle{
+    text-transform: uppercase;
+}
+
+#modalDetailProductImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+}
+
+#modalDetailProductBarcode {
+    text-decoration: underline;
+}
+
+#modalDetailProductInfo {
+    background-color: white;
+    padding: 0px 30px;
+    padding-top: 20px;
+    border-radius: 16px;
+    border: 1px solid transparent;
+}

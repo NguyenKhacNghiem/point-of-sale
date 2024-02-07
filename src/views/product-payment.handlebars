@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/css/productPayment.css">
+
+<div class="container">
+    <h2 class="text-success text-center">Thanh toán</h2>
+    <form method="POST" action="/product-payment">
+        <div class="form-group position-relative">
+            <div class="input-group">
+                <input type="search" id="mySearch" placeholder="Nhập tên hoặc barcode" class="form-control shadow-none">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-success" onclick="addProduct()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div id="searchResults" class="dropdown-menu" style="width: 100%;"></div>
+        </div>
+
+        <table class="table table-bordered table-hover text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Barcode</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Tổng tiền</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+
+            </tbody>
+        </table>
+
+        <input type="text" id="totalAmountInput" name="totalAmountInput" value="0" hidden>
+        <div class="form-group">
+            <label for="totalQuantityInput">Tổng số lượng:</label>
+            <input type="text" id="totalQuantityInput" name="totalQuantityInput" value="0" readonly class="form-control shadow-none">
+        </div>
+        <p id="totalAmount"><span style="font-weight: bold;">Tổng tiền:</span> 0</p>
+
+        <div class="bg-light rounded p-3">
+            <!-- Số điện thoại -->
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input autocomplete="off" type="text" id="phone" class="form-control shadow-none" placeholder="Nhập số điện thoại" name="phone" maxlength="10" value="{{phone}}" oninput="getCustomerInfo()"/>
+            </div>
+
+            <!-- Tên người dùng -->
+            <div class="form-group">
+                <label for="fullname">Họ và tên:</label>
+                <input type="text" id="fullname" name="fullname" class="form-control shadow-none" value="{{fullname}}">
+            </div>
+
+            <!-- Địa chỉ -->
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address" class="form-control shadow-none" value="{{address}}">
+            </div>
+
+            <input type="hidden" id="productTable" name="productTable">
+
+            <button type="submit" class="btn btn-success" onclick="checkout()">Thanh toán</button>
+
+            {{#if error}}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{error}}
+                </div>
+            {{/if}}
+        </div>
+    </form>
+</div>
+
+
+<script src="/js/productPayment.js"></script>

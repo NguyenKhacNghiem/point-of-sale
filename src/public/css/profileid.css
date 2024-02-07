@@ -1,0 +1,87 @@
+.card{
+    border:none;
+
+    position:relative;
+    overflow:hidden;
+    border-radius:8px;
+    cursor:pointer;
+    background-color: #f5f8f2;
+}
+
+.card:before{
+    
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background-color:#5bc0de;
+    transform:scaleY(1);
+    transition:all 0.5s;
+    transform-origin: bottom
+}
+
+.card:after{
+    
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background-color:rgb(0, 123, 255);
+    transform:scaleY(0);
+    transition:all 0.5s;
+    transform-origin: bottom
+}
+
+.card:hover::after{
+    transform:scaleY(1);
+}
+
+
+.fonts{
+    font-size:11px;
+}
+
+a, a:hover {
+	color: #537b35;
+}
+
+h2 {
+    color: #537b35;
+    text-align: center;
+}
+
+label{
+    color: #537b35;
+}
+
+.image-container img {
+    height: 200px;
+}
+
+#email, #fullname {
+    cursor: not-allowed;
+}
+
+/* Khi hover lên bức ảnh thì hiện button thay đổi ảnh */
+#btnChooseFile {
+    display: none;
+}
+
+.image-container {
+    position: relative;
+    text-align: center;
+}
+
+.image-container:hover #btnChooseFile {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+

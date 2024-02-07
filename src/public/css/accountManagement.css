@@ -1,0 +1,15 @@
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+img:hover {
+    scale: 1.5;
+    transition: 1s;
+}
+  

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="/img/icon.png">
+
+   {{!-- Bootstrap, Jquery --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a3e7be1751.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark mb-5">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/">My Point Of Sale</a>
+
+        <ul class="navbar-nav ml-auto">
+            <!-- Dropdown -->
+            {{#if email}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        <i class="fa-regular fa-circle-user"></i> {{email}}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/product-payment"><i class="fa-solid fa-cash-register"></i> Bán hàng</a>
+                        <a class="dropdown-item" href="/staff-payment"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử bán hàng</a>
+                        <a class="dropdown-item" href="/report-analytic"><i class="fa-solid fa-chart-simple"></i> Báo cáo thống kê</a>
+                        <a class="dropdown-item" href="/profile"><i class="fa-solid fa-address-card"></i> Hồ sơ</a>
+                        <a class="dropdown-item" href="/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng xuất</a>
+                    </div>
+                </li>
+
+            {{else}}
+                <li class="nav-item">
+                    <a class="btn btn-light" href="/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập</a>
+                </li>
+            {{/if}}
+        </ul>
+    </nav>
+    
+    {{{body}}}
+
+    <div style="height:300px;"></div>
+    <footer class="bg-success text-light text-center py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; 2023 Cửa hàng điện thoại di động. Tất cả các quyền được bảo lưu.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

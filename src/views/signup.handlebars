@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/css/signup.css">
+
+<div class="stylesigup">
+    <h2>ĐĂNG KÝ</h2>
+    <form method="POST" action="/signup" novalidate>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="{{email}}">
+        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập họ tên" value="{{fullname}}">
+        <input type="submit" value="Đăng Ký" class="mb-3">
+        <p>Bạn đã có tài khoản? <a href="/login" style="font-weight: bold;">Đăng Nhập</a></p>
+    </form>
+
+    {{#if error}}
+        <div class="alert alert-danger">{{error}}</div>
+    {{/if}}
+
+    {{#if success}}
+        <div class="alert alert-success">{{success}}</div>
+    {{/if}}
+</div>
+
+
+
+
+
+
+
+
+
