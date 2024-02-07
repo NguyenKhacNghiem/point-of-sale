@@ -21,6 +21,7 @@ This project is a point of sale website that sells phones and their accessories.
 - Search products by multiple criteria
 - Paging product list
 - Make payment and show invoice
+  
 **2. Administrator role**
 - View staff list
 - View staff's detailed information
