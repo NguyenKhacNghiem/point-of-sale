@@ -42,6 +42,7 @@ This project is a point of sale website that sells phones and their accessories.
 **1. Staff account**
 - username: nghiem7755
 - password: nghiem7755
+  
 **2. Administrator account**
 - username: admin
 - password: admin
